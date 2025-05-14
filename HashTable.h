@@ -7,16 +7,16 @@ using namespace std;
 struct AllClientData;
 
 
-//creating a struct to hold each clients sub status and last day contacted in each bucket.
+/*creating a struct to hold each clients sub status and last day contacted in each bucket.
 struct ClientStatus {
     string subscription;
     int lastContacted;
-};
+};*/
 
 //here I create a struct for bucket to store the key, client status, and whether the slot is occupied or deleted.
 struct Bucket {
     int key;
-    ClientStatus value;
+    const AllClientData* value;
     bool isOccupied;
     bool isDeleted;
 
@@ -39,7 +39,7 @@ class HashTable {
     public:
         HashTable();
         ~HashTable();
-        bool insert(int key, const ClientStatus& value);
+        bool insert(int key, const AllClientData& value);
         void display() const;
         void unsubscribedClients(AllClientData* clientFile, int capacity);
         void searchPdays(int minDays);
