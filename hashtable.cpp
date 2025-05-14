@@ -67,9 +67,10 @@ void HashTable::display() const {
         cout << "[" << i << "]     ";
 
         if (table[i].isOccupied) {
+            const AllClientData* client = table[i].value;
             cout << "ID: " << table[i].key 
-                 << " | Subscription: " << table[i].value.subscription
-                 << " | Days Since Last Contact: " << table[i].value.lastContacted 
+                 << " | Subscription: " << client->campaignInfo.y
+                 << " | Days Since Last Contact: " << client->campaignInfo.pdays 
                  << endl;
         }
        
@@ -81,7 +82,7 @@ void HashTable::display() const {
     cout << "-----------------------" << endl;
 }
 
-//I will create a function to gathher only unsubscribed clients and insert them into the hash table.
+/*I will create a function to gathher only unsubscribed clients and insert them into the hash table.
 void HashTable::unsubscribedClients(AllClientData* clientFile, int capacity) {
     for (int i = 0; i < capacity; ++i) {
         if (clientFile[i].campaignInfo.y == "\"no\"") {
@@ -92,7 +93,7 @@ void HashTable::unsubscribedClients(AllClientData* clientFile, int capacity) {
             insert(clientFile[i].clientInfo.id, status);
         }
     }
-}
+}*/
 //here I will create a function to search by pdays with a threshold of 60 days.
 void HashTable::searchPdays(int minDays) {
     cout << "Searching..." << endl;
@@ -102,12 +103,12 @@ void HashTable::searchPdays(int minDays) {
 
     for (int i = 0; i < TABLE_SIZE; i++) {
         if (table[i].isOccupied && !table[i].isDeleted) {
-            ClientStatus client = table[i].value;
-            if (client.lastContacted < minDays) continue;
+            const AllClientData* client = table[i].value;
+            if (client->campaignInfo.pdays < minDays) continue;
 
             cout << "\nID: " << table[i].key;
-            cout << " | Subscription: " << client.subscription;
-            cout << " | Days since last contact: " << client.lastContacted << endl;
+            cout << " | Subscription: " << client->campaignInfo.y;
+            cout << " | Days since last contact: " << client->campaignInfo.pdays << endl;
             cout << "-------------------------------------------------------------";
 
             dayFound = true;
