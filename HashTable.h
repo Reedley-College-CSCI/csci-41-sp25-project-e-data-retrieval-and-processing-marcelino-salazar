@@ -41,7 +41,7 @@ class HashTable {
         ~HashTable();
         bool insert(int key, const AllClientData* value);
         void display() const;
-        void unsubscribedClients(AllClientData* clientFile, int capacity);
+        //void unsubscribedClients(AllClientData* clientFile, int capacity);
         void searchPdays(int minDays);
         bool remove(int key); 
         int tableSize() {

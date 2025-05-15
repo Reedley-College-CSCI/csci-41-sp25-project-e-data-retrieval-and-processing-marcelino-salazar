@@ -602,7 +602,7 @@ return;
 
 
 void Clients::followUps(HashTable& hashTable) {
-    hashTable.unsubscribedClients(clientFile, capacity);
+    //hashTable.unsubscribedClients(clientFile, capacity);
 
     while (true) {
         cout << "1. Display hash table contents" << endl;

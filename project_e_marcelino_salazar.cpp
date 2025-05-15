@@ -1,6 +1,6 @@
 /* TO RUN USE:
-g++ -std=c++11 project_c_marcelino_salazar.cpp clients.cpp queue.cpp hashtable.cpp -o project_c_marcelino_salazar   
-./project_c_marcelino_salazar
+g++ -std=c++11 project_e_marcelino_salazar.cpp clients.cpp queue.cpp hashtable.cpp -o project_e_marcelino_salazar   
+./project_e_marcelino_salazar
 */
 
 #include <iostream>

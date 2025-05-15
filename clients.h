@@ -19,12 +19,12 @@ struct ClientData {
     string education;
 
     void print() const {
-        cout << "ID number: " << id << endl;
-        cout << "Age: " << age << endl;
-        cout << "Occupation: " << job << endl;
-        cout << "Marital status: " << marital << endl;
-        cout << "Education: " << education << endl;
-        cout << "-----------------------" << endl;
+        cout << "   ID number:               " << id << endl;
+        cout << "   Age:                     " << age << endl;
+        cout << "   Occupation:              " << job << endl;
+        cout << "   Marital status:          " << marital << endl;
+        cout << "   Education:               " << education << endl;
+        cout << "" << endl;
     }
 };
 
@@ -35,11 +35,11 @@ struct ClientBankData {
     string loan;
     
     void print() const {
-        cout << "Defaults record: " << defaulted << endl;
-        cout << "Average yearly balance: " << balance << endl;
-        cout << "Housing loans: " << housing << endl;
-        cout << "Personal loans: " << loan << endl;
-        cout << "-----------------------" << endl;
+        cout << "   Defaults record:          " << defaulted << endl;
+        cout << "   Yearly balance:           " << balance << endl;
+        cout << "   Housing loans:            " << housing << endl;
+        cout << "   Personal loans:           " << loan << endl;
+        cout << "" << endl;
     }
 };
 
@@ -53,14 +53,14 @@ struct CampaignData {
     int followups;
 
     void print() const {
-        cout << "Subscription status: " << y << endl;
-        cout << "Contact type: " << contact << endl;
-        cout << "Day of the month contacted: " << day << endl;
-        cout << "Month contacted: " << month << endl;
-        cout << "Call duration (sec): " << duration << endl;
-        cout << "Days since last day contacted: " << pdays << endl;
-        cout << "Number of follow-ups: " << followups << endl;
-        cout << "-----------------------" << endl;
+        cout << "   Subscription status:      " << y << endl;
+        cout << "   Contact type:             " << contact << endl;
+        cout << "   Date contacted:           " << day << endl;
+        cout << "   Month contacted:          " << month << endl;
+        cout << "   Call duration (sec):      " << duration << endl;
+        cout << "   Days since last contact:  " << pdays << endl;
+        cout << "   Follow-ups:               " << followups << endl;
+        cout << "" << endl;
     }
 };
 
@@ -70,14 +70,13 @@ struct AllClientData { //this struct is nested with previous 3 structs.
     CampaignData campaignInfo;
     
     void print() const {
-        cout << "Client Information: " << endl;
-        cout << "" << endl;
+        int clientID = clientInfo.id;
+        cout << "|--------- CLIENT " << clientID << " OVERVIEW ---------|" << endl;
+        cout << "\n[PERSONAL INFORMATION]" << endl;
         clientInfo.print();
-        cout << "Client Bank Information: " << endl;
-        cout << "" << endl;
+        cout << "[BANK INFORMATION]" << endl;
         clientBankInfo.print();
-        cout << "Campaign Information: " << endl;
-        cout << "" << endl;
+        cout << "[CAMPAIGN DATA]" << endl;
         campaignInfo.print();
     }
 
