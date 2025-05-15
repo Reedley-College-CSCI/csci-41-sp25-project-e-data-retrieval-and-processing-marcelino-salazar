@@ -138,22 +138,34 @@ void Clients::loadfile() {
 }
 
 void Clients::search() { //function to search clients based of their id number.
-    int idSearch;
-    bool found = false;//here I intialize found variable to determine if a match was found or not.
-    cout << "Enter ID Number (starts at 10000): ";
-    cin >> idSearch;
-    cout << "-----------------------" << endl;
+    while(true) {
+        int idSearch;
+        bool found = false;//here I intialize found variable to determine if a match was found or not.
+        cout << "Enter ID Number (begins at 10000): ";
+        cin >> idSearch;
+        cout << "" << endl;
 
-    for (int i = 0; i < capacity; i++) {
-        if (clientFile[i].clientInfo.id == idSearch) {
-            clientFile[i].print();
-            found = true;
+        for (int i = 0; i < capacity; i++) {
+            if (clientFile[i].clientInfo.id == idSearch) {
+                clientFile[i].print();
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) { //this second if statement lets user know if no matches were found.
+            cout << "No matches found for ID " << idSearch << "." << endl;
+        }
+
+        //adding option to search again
+        string choice;
+        cout << "Would you like to search for anotther ID? (yes/no): ";
+        cin >> choice;
+
+        if (choice != "yes") {
+            cout << "Returning to main menu...\n";
             break;
         }
-    }
-
-    if (found != true) { //this second if statement lets user know if no matches were found.
-        cout << "No matches found. Re-run program";
     }
     
 }

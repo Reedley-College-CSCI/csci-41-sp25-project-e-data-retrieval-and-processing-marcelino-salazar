@@ -1,6 +1,5 @@
 /* TO RUN USE:
-g++ -std=c++11 project_e_marcelino_salazar.cpp clients.cpp queue.cpp hashtable.cpp -o project_e_marcelino_salazar   
-./project_e_marcelino_salazar
+g++ clients.cpp queue.cpp hashtable.cpp project_e_marcelino_salazar.cpp -o project_e && ./project_e
 */
 
 #include <iostream>
@@ -16,9 +15,8 @@ int main() {
     HashTable hashTable; //this object is for the followUps function
    
     while(true) {
-    cout << "MAIN MENU" << endl;
-    cout << "-----------------------" << endl;
-    cout << "1. View all clients" << endl;
+    cout << "\n|-------------------MAIN MENU-------------------|" << endl;
+    cout << "\n1. View all clients" << endl;
     cout << "2. Search ID" << endl;
     cout << "3. Add new client file" << endl;
     cout << "4. Remove client file" << endl;
@@ -28,10 +26,9 @@ int main() {
     cout << "8. Recently added clients" << endl;
     cout << "9. Follow Ups (manage unsubscribed clients)" << endl;
     cout << "10. Quit" << endl;
-    cout << "Enter option (1-10): ";
+    cout << "\nEnter option (1-10): ";
     int option;
     cin >> option;
-    cout << "-----------------------" << endl;
 
     if (cin.fail()) {
         cin.clear();
