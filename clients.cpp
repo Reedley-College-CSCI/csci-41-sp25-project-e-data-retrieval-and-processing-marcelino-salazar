@@ -188,42 +188,51 @@ void Clients::addClient() {  //here I create a function to add a new client file
     
     cout << "Enter job: ";
     cin >> newClientArray[capacity].clientInfo.job;
+    newClientArray[capacity].clientInfo.job = "\"" + newClientArray[capacity].clientInfo.job + "\"";
 
     cout << "Enter marital status: ";
     cin >> newClientArray[capacity].clientInfo.marital;
+    newClientArray[capacity].clientInfo.marital = "\"" + newClientArray[capacity].clientInfo.marital + "\"";
 
     cout << "Enter education level: ";
     cin >> newClientArray[capacity].clientInfo.education;
+    newClientArray[capacity].clientInfo.education = "\"" + newClientArray[capacity].clientInfo.education + "\"";
 
     cout << "Does client have default history? (yes/no): ";
     cin >> newClientArray[capacity].clientBankInfo.defaulted;
+    newClientArray[capacity].clientBankInfo.defaulted = "\"" + newClientArray[capacity].clientBankInfo.defaulted + "\"";
 
     cout << "Enter bank balance: ";
     cin >> newClientArray[capacity].clientBankInfo.balance;
 
     cout << "Does client posses housing? (yes/no): ";
     cin >> newClientArray[capacity].clientBankInfo.housing;
+    newClientArray[capacity].clientBankInfo.housing = "\"" + newClientArray[capacity].clientBankInfo.housing + "\"";
 
     cout << "Does client have any loan (yes/no): ";
     cin >> newClientArray[capacity].clientBankInfo.loan;
+    newClientArray[capacity].clientBankInfo.loan = "\"" + newClientArray[capacity].clientBankInfo.loan + "\"";
 
     cout << "Enter contact type (phone, email, mail): ";
     cin >> newClientArray[capacity].campaignInfo.contact;
+    newClientArray[capacity].campaignInfo.contact = "\"" + newClientArray[capacity].campaignInfo.contact + "\"";
 
     cout << "Enter date of contact (1-31): ";
     cin >> newClientArray[capacity].campaignInfo.day;
 
     cout << "Enter month of contact: ";
     cin >> newClientArray[capacity].campaignInfo.month;
+    newClientArray[capacity].campaignInfo.month = "\"" + newClientArray[capacity].campaignInfo.month + "\"";
 
-    cout << "Enter duration of phonecall: ";
+    cout << "Enter duration of phonecall (sec): ";
     cin >> newClientArray[capacity].campaignInfo.duration;
 
     cout << "Enter number of days since last contact: ";
     cin >> newClientArray[capacity].campaignInfo.pdays;
 
-    cout << "Did the client subscribe?: ";
+    cout << "Did the client subscribe? (yes/no): ";
     cin >> newClientArray[capacity].campaignInfo.y;
+    newClientArray[capacity].campaignInfo.y = "\"" + newClientArray[capacity].campaignInfo.y + "\"";
 
     cout << "Enter number of follow-ups completed: ";
     cin >> newClientArray[capacity].campaignInfo.followups;
