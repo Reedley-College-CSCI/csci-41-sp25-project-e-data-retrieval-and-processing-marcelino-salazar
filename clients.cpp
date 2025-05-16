@@ -134,6 +134,7 @@ void Clients::loadfile() {
         getline(parse, temporaryLine, ';'); 
         clientFile[i].campaignInfo.followups = stoi(temporaryLine);
     }
+    
     file.close();
 }
 

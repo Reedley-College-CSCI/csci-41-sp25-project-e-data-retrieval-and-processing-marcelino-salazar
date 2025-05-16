@@ -18,14 +18,14 @@ int main() {
     cout << "\n|-------------------MAIN MENU-------------------|" << endl;
     cout << "\n1. View all clients" << endl;
     cout << "2. Search ID" << endl;
-    cout << "3. Add new client file" << endl;
-    cout << "4. Remove client file" << endl;
-    cout << "5. Sort Descending (highest to lowest balance)" << endl;
+    cout << "3. Add new client" << endl;
+    cout << "4. Remove client" << endl;
+    cout << "5. Sort by balance" << endl;
     cout << "6. View Trash bin" << endl;
     cout << "7. Restore client" << endl;
     cout << "8. Recently added clients" << endl;
     cout << "9. Follow Ups (manage unsubscribed clients)" << endl;
-    cout << "10. Quit" << endl;
+    cout << "10. Exit Program" << endl;
     cout << "\nEnter option (1-10): ";
     int option;
     cin >> option;

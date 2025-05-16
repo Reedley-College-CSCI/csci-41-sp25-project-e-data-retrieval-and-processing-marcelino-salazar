@@ -66,8 +66,9 @@ void HashTable::display() const {
     for (int i = 0; i < TABLE_SIZE; ++i) {
         cout << "[" << i << "]     ";
 
+      const AllClientData* client = table[i].value;
+
         if (table[i].isOccupied) {
-            const AllClientData* client = table[i].value;
             cout << "ID: " << table[i].key 
                  << " | Subscription: " << client->campaignInfo.y
                  << " | Days Since Last Contact: " << client->campaignInfo.pdays 
