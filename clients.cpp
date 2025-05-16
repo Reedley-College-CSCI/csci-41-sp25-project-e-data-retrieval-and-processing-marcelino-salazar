@@ -17,6 +17,22 @@ Clients::~Clients() { //
     }
 }
 
+//creating new function for valid int inputs
+int validIntInput(const string& prompt, int min, int max) {
+    int value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+
+        if (!cin.fail() && value >= min && value <= max) {
+            break;
+        }
+        cout << "Invalid input. Enter a value between " << min << " and " << max << ".\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+    return value;
+}
 //this function divides the array into low and high
 int Clients::Partition(AllClientData* clientBalance, int lowIndex, int highIndex, SortTracker& tracker, bool isAscending) {
     int pivot = clientBalance[lowIndex + (highIndex - lowIndex) / 2].clientBankInfo.balance;
@@ -86,6 +102,11 @@ void Clients::sortClients() {
     }
 }
 
+//this function checks if a string contains only numeric characters. Will use in loadfile()
+bool isNumber(const string& str) {
+    return !str.empty() && all_of(str.begin(), str.end(), ::isdigit);
+}
+
 void Clients::loadfile() {
     ifstream file("bank_full.csv"); //this declares a ifstream class named "file" to open the external file bank_full.csv.
     if (!file) {
@@ -121,26 +142,26 @@ void Clients::loadfile() {
         clientFile[i].clientInfo.id = idNumber++; //this assigns unique 6 digit id number to each client.
         //here I use the getline() function to extract data from "parse" and store it into data members accordingly. I used stoi() function to convert strings into integers where needed.
         getline(parse, temporaryLine, ';'); 
-        clientFile[i].clientInfo.age = stoi(temporaryLine);
+        clientFile[i].clientInfo.age = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
         getline(parse, clientFile[i].clientInfo.job, ';');
         getline(parse, clientFile[i].clientInfo.marital, ';');
         getline(parse, clientFile[i].clientInfo.education, ';');
         getline(parse, clientFile[i].clientBankInfo.defaulted, ';');
         getline(parse, temporaryLine, ';');
-        clientFile[i].clientBankInfo.balance = stoi(temporaryLine);
+        clientFile[i].clientBankInfo.balance = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
         getline(parse, clientFile[i].clientBankInfo.housing, ';');
         getline(parse, clientFile[i].clientBankInfo.loan, ';');
         getline(parse, clientFile[i].campaignInfo.contact, ';');
         getline(parse, temporaryLine, ';'); 
-        clientFile[i].campaignInfo.day = stoi(temporaryLine);
+        clientFile[i].campaignInfo.day = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
         getline(parse, clientFile[i].campaignInfo.month, ';');
         getline(parse, temporaryLine, ';'); 
-        clientFile[i].campaignInfo.duration = stoi(temporaryLine);
+        clientFile[i].campaignInfo.duration = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
         getline(parse, temporaryLine, ';'); 
-        clientFile[i].campaignInfo.pdays = stoi(temporaryLine);
+        clientFile[i].campaignInfo.pdays = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
         getline(parse, clientFile[i].campaignInfo.y, ';');
         getline(parse, temporaryLine, ';'); 
-        clientFile[i].campaignInfo.followups = stoi(temporaryLine);
+        clientFile[i].campaignInfo.followups = isNumber(temporaryLine) ? stoi(temporaryLine) : 0;
 
         //used the insert function for the hashtable
         clientHashTable.insert(clientFile[i].clientInfo.id, &clientFile[i]);
@@ -195,67 +216,81 @@ void Clients::fullprint() const { //function to print clientFile
     }
 }
 
+//updating input validation for each input.
 void Clients::addClient() {  //here I create a function to add a new client file
     AllClientData* newClientArray = new AllClientData[capacity + 1]; //this creates a new dynamic array with 1 space appended to store new client file.
+    string months[12] = {"jan", "feb", "mar", "apr", "may", "jun",
+    "jul", "aug", "sep", "oct", "nov", "dec"};
+    string yesNoInput;
 
     for (int i = 0; i < capacity; i++) {  //this for loop iterates through each existing client file and stores corresponding index to new array.
         newClientArray[i] = clientFile[i];  
     }
 
-    cout << "Enter age: ";
-    cin >> newClientArray[capacity].clientInfo.age;
+    newClientArray[capacity].clientInfo.age = validIntInput("Enter age: ", 18, 100);
+    cin.ignore();
     
     cout << "Enter job: ";
-    cin >> newClientArray[capacity].clientInfo.job;
+    getline(cin, newClientArray[capacity].clientInfo.job);
     newClientArray[capacity].clientInfo.job = "\"" + newClientArray[capacity].clientInfo.job + "\"";
 
     cout << "Enter marital status: ";
-    cin >> newClientArray[capacity].clientInfo.marital;
+    getline(cin, newClientArray[capacity].clientInfo.marital);
     newClientArray[capacity].clientInfo.marital = "\"" + newClientArray[capacity].clientInfo.marital + "\"";
 
     cout << "Enter education level: ";
-    cin >> newClientArray[capacity].clientInfo.education;
+    getline(cin, newClientArray[capacity].clientInfo.education);
     newClientArray[capacity].clientInfo.education = "\"" + newClientArray[capacity].clientInfo.education + "\"";
 
-    cout << "Does client have default history? (yes/no): ";
-    cin >> newClientArray[capacity].clientBankInfo.defaulted;
-    newClientArray[capacity].clientBankInfo.defaulted = "\"" + newClientArray[capacity].clientBankInfo.defaulted + "\"";
+    do {
+        cout << "Does client have default history? (yes/no): ";
+        getline(cin, yesNoInput);
+        if (yesNoInput != "yes" && yesNoInput != "no")
+            cout << "Invalid input. Please enter yes/no.\n";
+    } while (yesNoInput != "yes" && yesNoInput != "no");
+    newClientArray[capacity].clientBankInfo.defaulted = "\"" + yesNoInput + "\"";
 
-    cout << "Enter bank balance: ";
-    cin >> newClientArray[capacity].clientBankInfo.balance;
+    newClientArray[capacity].clientBankInfo.balance = validIntInput("Enter bank balance: ", 0, 10000000);
 
-    cout << "Does client posses housing? (yes/no): ";
-    cin >> newClientArray[capacity].clientBankInfo.housing;
-    newClientArray[capacity].clientBankInfo.housing = "\"" + newClientArray[capacity].clientBankInfo.housing + "\"";
+    do {
+        cout << "Does client possess housing? (yes/no): ";
+        getline(cin, yesNoInput);
+        if (yesNoInput != "yes" && yesNoInput != "no")
+            cout << "Invalid input. Please enter yes/no.\n";
+    } while (yesNoInput != "yes" && yesNoInput != "no");
+    newClientArray[capacity].clientBankInfo.housing = "\"" + yesNoInput + "\"";
 
-    cout << "Does client have any loan (yes/no): ";
-    cin >> newClientArray[capacity].clientBankInfo.loan;
-    newClientArray[capacity].clientBankInfo.loan = "\"" + newClientArray[capacity].clientBankInfo.loan + "\"";
+    do {
+        cout << "Does client have any loan? (yes/no): ";
+        getline(cin, yesNoInput);
+        if (yesNoInput != "yes" && yesNoInput != "no")
+            cout << "Invalid input. Please enter yes/no.\n";
+    } while (yesNoInput != "yes" && yesNoInput != "no");
+    newClientArray[capacity].clientBankInfo.loan = "\"" + yesNoInput + "\"";
 
     cout << "Enter contact type (phone, email, mail): ";
-    cin >> newClientArray[capacity].campaignInfo.contact;
+    getline(cin, newClientArray[capacity].campaignInfo.contact);
     newClientArray[capacity].campaignInfo.contact = "\"" + newClientArray[capacity].campaignInfo.contact + "\"";
 
-    cout << "Enter date of contact (1-31): ";
-    cin >> newClientArray[capacity].campaignInfo.day;
+    newClientArray[capacity].campaignInfo.day = validIntInput("Enter date of contact (1-31): ", 1, 31);
 
-    cout << "Enter month of contact: ";
-    cin >> newClientArray[capacity].campaignInfo.month;
+    cout << "Enter month of contact (e.g., jan, feb, mar): ";
+    getline(cin, newClientArray[capacity].campaignInfo.month);
     newClientArray[capacity].campaignInfo.month = "\"" + newClientArray[capacity].campaignInfo.month + "\"";
 
-    cout << "Enter duration of phonecall (sec): ";
-    cin >> newClientArray[capacity].campaignInfo.duration;
+    newClientArray[capacity].campaignInfo.duration = validIntInput("Enter duration of call (sec): ", 0, 10000000);
 
-    cout << "Enter number of days since last contact: ";
-    cin >> newClientArray[capacity].campaignInfo.pdays;
+    newClientArray[capacity].campaignInfo.pdays = validIntInput("Enter days since last contact (0-365): ", 0, 365);
 
-    cout << "Did the client subscribe? (yes/no): ";
-    cin >> newClientArray[capacity].campaignInfo.y;
-    newClientArray[capacity].campaignInfo.y = "\"" + newClientArray[capacity].campaignInfo.y + "\"";
+    do {
+        cout << "Did the client subscribe? (yes/no): ";
+        getline(cin, yesNoInput);
+        if (yesNoInput != "yes" && yesNoInput != "no")
+            cout << "Invalid input. Please enter yes/no.\n";
+    } while (yesNoInput != "yes" && yesNoInput != "no");
+    newClientArray[capacity].campaignInfo.y = "\"" + yesNoInput + "\"";
 
-    cout << "Enter number of follow-ups completed: ";
-    cin >> newClientArray[capacity].campaignInfo.followups;
-    cout << "-----------------------" << endl;
+    newClientArray[capacity].campaignInfo.followups = validIntInput("Enter number of follow-ups completed: ", 0, 100);
 
     newClientArray[capacity].clientInfo.id = 10000 + capacity; //this assigns new id based off the capacity number.
 
@@ -286,7 +321,7 @@ void Clients::addClient() {  //here I create a function to add a new client file
         clientFile[capacity - 1].print();
 
         clientHashTable.insert(clientFile[capacity - 1].clientInfo.id, &clientFile[capacity - 1]);
-}
+    }
 }
 
 void Clients::removeClient() {
