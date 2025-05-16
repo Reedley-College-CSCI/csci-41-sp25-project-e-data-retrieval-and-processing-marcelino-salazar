@@ -60,11 +60,13 @@ void Clients::QuickSort(AllClientData* clients, int lowIndex, int highIndex, Sor
 void Clients::sortClients() {
     int option;
 
-    cout << "Sort by Balance" << endl;
-    cout << "1. Descending" << endl;
+    cout << "\n[Sort by balance options]" << endl;
+    cout << "\n1. Descending" << endl;
     cout << "2. Ascending" << endl;
-    cout << "Enter an option" << endl;
+    cout << "\nEnter an option: ";
     cin >> option;
+    cout << "" << endl;
+
 
     SortTracker tracker;
     bool isAscending = (option == 2); //this assigns isAscending if option is 2
@@ -277,7 +279,7 @@ void Clients::addClient() {  //here I create a function to add a new client file
 
 void Clients::removeClient() {
     int removeID;
-    cout << "Enter ID Number to remove: ";
+    cout << "\nEnter ID Number to remove: ";
     cin >> removeID;
 
     bool found = false;
@@ -312,7 +314,7 @@ void Clients::removeClient() {
     clientFile = newClientArray;
     capacity--;
 
-    cout << "Client with ID " << removeID << " has been removed.\n";
+    cout << "\nClient with ID " << removeID << " has been removed.\n";
 
     ofstream outfile("bank_full.csv");
     if (outfile.is_open()) {
@@ -343,7 +345,7 @@ void Clients::removeClient() {
 
 void Clients::restoreClient() {
     int id;
-    cout << "Enter ID to restore: ";
+    cout << "\nEnter ID to restore: ";
     cin >> id;
     trashbin.Restore(*this, id);
 
@@ -389,23 +391,23 @@ void Clients::dequeueClient() {
 
 //adding function to display folowupqueue
 void Clients::printQueue() const {
+    cout << "\nLoading recently added clients..\n";
+    cout << "" << endl;
     followUpQueue.PrintQueueClients();
 }
 
 void Clients::recentlyAdded() {
     while(true) {
-        cout << "1. View Recently Added." << endl;
+        cout << "\n1. View Recently Added." << endl;
         cout << "2. Enqueue recently added client." << endl;
         cout << "3. Dequeue recently added client." << endl;
         cout << "4. Return to Main Menu." << endl;
-        cout << "Enter option: ";
+        cout << "\nEnter option: ";
         int option;
         cin >> option;
-        cout << "-----------------------" << endl;
         
         if (cin.fail()) {
             cout << "Invalid input. Enter valid input: 1,2,3" << endl;
-            cout << "-----------------------" << endl;
             
         } else if (option == 1) {
             Clients::printQueue();
@@ -494,6 +496,7 @@ bool SinglyLinkedNode::TrashList::Restore(Clients& clients, int id) { // restore
             }
 
             delete current; //delete node from the trash list
+            cout << "\nClient " << id << " restored." << endl;
             return true; //ends function operations
         }
         //if the first node did not match traveerse to the next node.
@@ -509,11 +512,13 @@ void SinglyLinkedNode::TrashList::PrintDeletedClients() const {
     Node* current = head;
     
     if (!current) {
-        cout << "Trash bin Empty" << endl;
+        cout << "\nTrash bin Empty" << endl;
         return;
     }
 
     while (current) {
+        cout << "\nDisplaying trash bin contents...\n";
+        cout << "" << endl;
         current->clientInfo.print();
         current = current->next;
     }
