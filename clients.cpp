@@ -133,6 +133,10 @@ void Clients::loadfile() {
         getline(parse, clientFile[i].campaignInfo.y, ';');
         getline(parse, temporaryLine, ';'); 
         clientFile[i].campaignInfo.followups = stoi(temporaryLine);
+
+        //used the insert function for the hashtable
+        clientHashTable.insert(clientFile[i].clientInfo.id, &clientFile[i]);
+
     }
     
     file.close();
@@ -240,6 +244,7 @@ void Clients::addClient() {  //here I create a function to add a new client file
     cout << "-----------------------" << endl;
 
     newClientArray[capacity].clientInfo.id = 10000 + capacity; //this assigns new id based off the capacity number.
+
     
     delete[] clientFile; //this deletes the memory that was previously allocated for client file.
     clientFile = newClientArray; //this re-assigns clientFile with the new array created.
@@ -265,6 +270,8 @@ void Clients::addClient() {  //here I create a function to add a new client file
         outfile.close();
     
         clientFile[capacity - 1].print();
+
+        clientHashTable.insert(clientFile[capacity - 1].clientInfo.id, &clientFile[capacity - 1]);
 }
 }
 
@@ -623,7 +630,7 @@ return;
 
 
 
-void Clients::followUps(HashTable& hashTable) {
+void Clients::followUps() {
     //hashTable.unsubscribedClients(clientFile, capacity);
 
     while (true) {
@@ -647,19 +654,19 @@ void Clients::followUps(HashTable& hashTable) {
 
         if (followUpOption == 1) {
             cout << "Displaying all clients in hash table:" << endl;
-            hashTable.display();
+            clientHashTable.display();
         } else if (followUpOption == 2) {
             int minDays;
             cout << "Enter minimum days since last contact (1-60): ";
             cin >> minDays;
             if (minDays >= 1 && minDays <= 60) {
-                hashTable.searchPdays(minDays);
+                clientHashTable.searchPdays(minDays);
             } else {
                 cout << "Invalid input. Please enter a number between 1 and 60.\n";
             }
         
         } else if (followUpOption == 3) {
-            updateFollowups(hashTable);
+            updateFollowups(clientHashTable);
 
         } else if (followUpOption == 4) {
             cout << "Returning to Main Menu..." << endl;

@@ -63,7 +63,7 @@ int main() {
         viewClients.recentlyAdded();
 
     } else if (option == 9) {
-        viewClients.followUps(hashTable);
+        viewClients.followUps();
 
     } else if (option == 10) {
         cout << "Closing...";

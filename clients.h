@@ -148,12 +148,14 @@ class Clients { //here I added a class to hold structs
         void dequeueClient();
         void recentlyAdded();
         void updateFollowups(HashTable& hashTable);
-        void followUps(HashTable& hashTable);
+        void followUps();
 
 
         private: 
          SinglyLinkedNode::TrashList trashbin;
          Queue followUpQueue;
+         //need object to call insert function from hashtable.cpp
+         HashTable clientHashTable;
 
          //helper functions to declare functions in private.
          int Partition(AllClientData* clientBalance, int lowIndex, int highIndex, SortTracker& tracker, bool isAscending);
