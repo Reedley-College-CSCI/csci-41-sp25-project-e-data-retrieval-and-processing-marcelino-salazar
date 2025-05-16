@@ -552,7 +552,7 @@ void Clients::updateFollowups(HashTable& hashTable) {
             //if yes then increment followup and update day and month of contact
             if (input == "yes") {
                 clientFile[i].campaignInfo.followups++;
-                cout << "Day of contact: ";
+                cout << "Day of contact (1-31): ";
                 cin >> clientFile[i].campaignInfo.day;
                 if (cin.fail() || clientFile[i].campaignInfo.day < 1 || clientFile[i].campaignInfo.day > 31) {
                     cin.clear();
@@ -560,7 +560,7 @@ void Clients::updateFollowups(HashTable& hashTable) {
                     cout << "Invalid day. Please enter a number between 1 and 31.\n";
                     return;
                 }
-                cout << "Month of contact: ";
+                cout << "Month of contact (jan-dec): ";
                 cin >> input;
                 if (cin.fail()) {
                     cin.clear();
@@ -594,7 +594,7 @@ void Clients::updateFollowups(HashTable& hashTable) {
                 if (clientFile[i].campaignInfo.y == "\"yes\"") {
                     //need to create remove function
                     hashTable.remove(id);
-                    cout << "Client removed from follow-up list.\n";
+                    cout << "\nClient removed from follow-up list.\n";
                 } else {
                     cout << "Follow-up with client again in no more than 30 days.\n";
                 }
@@ -624,7 +624,6 @@ void Clients::updateFollowups(HashTable& hashTable) {
         }
     }
 }
-cout << "-----------------------" << endl;
 return;
 }
 
@@ -634,26 +633,27 @@ void Clients::followUps() {
     //hashTable.unsubscribedClients(clientFile, capacity);
 
     while (true) {
-        cout << "1. Display hash table contents" << endl;
+        cout << "\n[-----------------HASH TABLE MENU----------------]\n";
+        cout << "\n1. Display hash table contents" << endl;
         cout << "2. Search by days since last contact" << endl;
         cout << "3. Update follow-up" << endl;
         cout << "4. Return to Main Menu" << endl;
-        cout << "Enter option (1-4): ";
+        cout << "\nEnter option (1-4): ";
 
         int followUpOption;
         cin >> followUpOption;
-        cout << "-----------------------" << endl;
+        cout << "" << endl;
 
         if (cin.fail()) {
             cin.clear();
             cin.ignore();
-            cout << "Invalid input. Please enter 1-4" << endl;
+            cout << "Invalid input. Please enter 1-4\n" << endl;
             cout << "-----------------------" << endl;
             return;
         }
 
         if (followUpOption == 1) {
-            cout << "Displaying all clients in hash table:" << endl;
+            cout << "Displaying all clients in hash table...\n" << endl;
             clientHashTable.display();
         } else if (followUpOption == 2) {
             int minDays;

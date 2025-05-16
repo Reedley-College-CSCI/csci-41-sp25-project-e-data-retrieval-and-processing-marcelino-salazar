@@ -64,23 +64,22 @@ return insert(key, value);
 //I create a display function with client status
 void HashTable::display() const {
     for (int i = 0; i < TABLE_SIZE; ++i) {
-        cout << "[" << i << "]     ";
+        cout << "\n[" << i << "]     ";
 
       const AllClientData* client = table[i].value;
 
         if (table[i].isOccupied) {
-            cout << "ID: " << table[i].key 
-                 << " | Subscription: " << client->campaignInfo.y
-                 << " | Days Since Last Contact: " << client->campaignInfo.pdays 
-                 << endl;
+            cout << "ID: " << table[i].key; 
+            cout << " | Subscription: " << client->campaignInfo.y;
+            cout << " | Days Since Last Contact: " << client->campaignInfo.pdays << endl;
+            cout << "-------------------------------------------------------------------------";
         }
        
         else {
             cout << "EMPTY" << endl;
         }
     }
-    cout << "Total Collisions: " << collisionCount << endl;
-    cout << "-----------------------" << endl;
+    cout << "\nTotal Collisions: " << collisionCount << endl;
 }
 
 /*I will create a function to gathher only unsubscribed clients and insert them into the hash table.
@@ -98,7 +97,7 @@ void HashTable::unsubscribedClients(AllClientData* clientFile, int capacity) {
 //here I will create a function to search by pdays with a threshold of 60 days.
 void HashTable::searchPdays(int minDays) {
     cout << "Searching..." << endl;
-    cout << "\nClients with " << minDays << " or more: \n";
+    cout << "\nClients with " << minDays << " or more days since contacted: \n";
 
     bool dayFound = false;
 
@@ -117,7 +116,7 @@ void HashTable::searchPdays(int minDays) {
     }
 
     if (!dayFound) {
-        cout << "No matches";
+        cout << "\nNo matches. Returning to hashtable menu...";
     }
     cout << "" << endl;
 }
