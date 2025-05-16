@@ -65,6 +65,12 @@ void Clients::sortClients() {
     cout << "2. Ascending" << endl;
     cout << "\nEnter an option: ";
     cin >> option;
+    if (cin.fail()) {
+            cin.clear();
+            cin.ignore();
+            cout << "Invalid input. Please enter 1-2\n" << endl;
+            return;
+        }
     cout << "" << endl;
 
 
@@ -148,8 +154,14 @@ void Clients::search() { //function to search clients based of their id number.
     while(true) {
         int idSearch;
         bool found = false;//here I intialize found variable to determine if a match was found or not.
-        cout << "Enter ID Number (begins at 10000): ";
+        cout << "Enter 5 digit ID Number (10000-10100): ";
         cin >> idSearch;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore();
+            cout << "Invalid ID. Please enter 5 digit ID (10000-10100)\n" << endl;
+            return;
+        }
         cout << "" << endl;
 
         for (int i = 0; i < capacity; i++) {
@@ -166,7 +178,7 @@ void Clients::search() { //function to search clients based of their id number.
 
         //adding option to search again
         string choice;
-        cout << "Would you like to search for anotther ID? (yes/no): ";
+        cout << "Would you like to search for another ID? (yes/no): ";
         cin >> choice;
 
         if (choice != "yes") {
@@ -279,8 +291,14 @@ void Clients::addClient() {  //here I create a function to add a new client file
 
 void Clients::removeClient() {
     int removeID;
-    cout << "\nEnter ID Number to remove: ";
+    cout << "\nEnter 5 digit ID Number to remove: ";
     cin >> removeID;
+    if (cin.fail()) {
+            cin.clear();
+            cin.ignore();
+            cout << "Invalid ID. Please enter 5 digit ID (10000-10100)\n" << endl;
+            return;
+    }
 
     bool found = false;
     int removeIndex = -1;
@@ -345,8 +363,14 @@ void Clients::removeClient() {
 
 void Clients::restoreClient() {
     int id;
-    cout << "\nEnter ID to restore: ";
+    cout << "\nEnter 5 digit ID to restore: ";
     cin >> id;
+    if (cin.fail()) {
+            cin.clear();
+            cin.ignore();
+            cout << "Invalid ID. Please enter 5 digit ID (10000-10100)\n" << endl;
+            return;
+    }
     trashbin.Restore(*this, id);
 
     ofstream outfile("bank_full.csv");
@@ -407,7 +431,7 @@ void Clients::recentlyAdded() {
         cin >> option;
         
         if (cin.fail()) {
-            cout << "Invalid input. Enter valid input: 1,2,3" << endl;
+            cout << "Invalid input. Enter valid input: 1-4" << endl;
             
         } else if (option == 1) {
             Clients::printQueue();
@@ -531,17 +555,17 @@ void Clients::updateFollowups(HashTable& hashTable) {
     string months[12] = {"jan", "feb", "mar", "apr", "may", "jun",
     "jul", "aug", "sep", "oct", "nov", "dec"
 };
-    cout << "Enter ID of client: ";
+    cout << "Enter 5 digit ID of client (10000-10100): ";
     cin >> id;
     if (cin.fail()) {
         cin.clear();
         cin.ignore();
-        cout << "Invalid input. Please enter correct ID.";
+        cout << "Invalid ID. Please enter 5 digit ID (10000-10100).\n";
         return;
     }
 
     if (id < 10000) {
-        cout << "Invalid ID. Try again.\n";
+        cout << "Invalid ID. Please enter 5 digit ID (10000-10100).\n";
         return;
     }
 
@@ -551,7 +575,7 @@ void Clients::updateFollowups(HashTable& hashTable) {
             cout << "Did you follow up? (yes/no): ";
             cin >> input;
             if (input != "yes" && input != "no") {
-                cout << "Invalid input. Please enter 'yes' or 'no'.\n";
+                cout << "Invalid input. Please enter yes/no.\n";
                 return;
             }
             //if yes then increment followup and update day and month of contact
@@ -592,7 +616,7 @@ void Clients::updateFollowups(HashTable& hashTable) {
                 cout << "Has the client subscribed? (yes/no): ";
                 cin >> input;
                 if (input != "yes" && input != "no") {
-                    cout << "Invalid input. Please enter 'yes' or 'no'.\n";
+                    cout << "Invalid input. Please enter yes/no.\n";
                     return;
                 }
                 clientFile[i].campaignInfo.y = "\"" + input + "\"";
@@ -653,7 +677,6 @@ void Clients::followUps() {
             cin.clear();
             cin.ignore();
             cout << "Invalid input. Please enter 1-4\n" << endl;
-            cout << "-----------------------" << endl;
             return;
         }
 

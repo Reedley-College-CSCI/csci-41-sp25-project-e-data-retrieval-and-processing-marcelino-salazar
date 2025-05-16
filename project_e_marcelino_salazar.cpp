@@ -34,7 +34,6 @@ int main() {
         cin.clear();
         cin.ignore();
         cout << "Invalid input. Enter valid input: 1-10" << endl;
-        cout << "-----------------------" << endl;
         
     } else if (option == 1) {
         viewClients.fullprint();
